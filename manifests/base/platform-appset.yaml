@@ -7,9 +7,10 @@ metadata:
 spec:
   generators:
   - scmProvider:
+      cloneProtocol: https
       filters:
       # Include any repository starting with "myapp" AND including a Kustomize config AND labeled with "deploy-ok" ...
-      - repositoryMatch: ^platform-
+      - repositoryMatch: ^platform
         pathsExist: [kustomization.yaml]
       github:
         # The GitHub organization to scan.
@@ -33,7 +34,7 @@ spec:
       # Source of the application manifests
       source:
         repoURL: '{{url}}'  # Can point to either a Helm chart repo or a git repo.
-        targetRevision: '{{{branch}}'  # For Helm, this refers to the chart version.
+        targetRevision: '{{branch}}'  # For Helm, this refers to the chart version.
         path: manifests/overlays/env_replacement_pending  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
 
       # Destination cluster and namespace to deploy the application
