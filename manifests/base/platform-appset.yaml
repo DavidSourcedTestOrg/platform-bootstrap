@@ -19,6 +19,9 @@ spec:
         # api: https://git.example.com/
         # If true, scan every branch of every repository. If false, scan only the default branch. Defaults to false.
         allBranches: false
+        tokenRef:
+          secretName: github-token
+          key: token
   template:
     metadata:
       name: '{{repository}}'
