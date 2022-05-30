@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: platform
+spec:
+  generators:
+  - scmProvider:
+      filters:
+      # Include any repository starting with "myapp" AND including a Kustomize config AND labeled with "deploy-ok" ...
+      - repositoryMatch: ^platform-
+        pathsExist: [manifests/overlays/env_replacement_pending/kustomization.yaml]
+      github:
+        # The GitHub organization to scan.
+        organization: DavidSourcedTestOrg
+        # For GitHub Enterprise:
+        # api: https://git.example.com/
+        # If true, scan every branch of every repository. If false, scan only the default branch. Defaults to false.
+        allBranches: false
+  template:
+    metadata:
+      name: '{{repository}}'
+      # You'll usually want to add your resources to the argocd namespace.
+      namespace: argocd
+      # Add this finalizer ONLY if you want these to cascade delete.
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      # The project the application belongs to.
+      project: default
+
+      # Source of the application manifests
+      source:
+        repoURL: '{{url}}'  # Can point to either a Helm chart repo or a git repo.
+        targetRevision: '{{{branch}}'  # For Helm, this refers to the chart version.
+        path: manifests/overlays/env_replacement_pending  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
+
+      # Destination cluster and namespace to deploy the application
+      destination:
+        server: https://kubernetes.default.svc
+        # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
+        namespace: argocd
+
+      # Sync policy
+      syncPolicy:
+        automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+          prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+          selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+          allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
+        syncOptions:     # Sync options which modifies sync behavior
+        - PrunePropagationPolicy=foreground # Supported policies are background, foreground and orphan.
+        - PruneLast=true # Allow the ability for resource pruning to happen as a final, implicit wave of a sync operation

@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.4/manifests/install.yaml
-- platform.yaml
+- platform-appset.yaml
+# - platform-apps-appset.yaml
