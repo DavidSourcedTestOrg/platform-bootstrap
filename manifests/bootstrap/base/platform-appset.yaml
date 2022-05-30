@@ -2,13 +2,15 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: platform
+
+
 spec:
   generators:
   - scmProvider:
       filters:
       # Include any repository starting with "myapp" AND including a Kustomize config AND labeled with "deploy-ok" ...
       - repositoryMatch: ^platform-
-        pathsExist: [manifests/overlays/env_replacement_pending/kustomization.yaml]
+        pathsExist: [kustomization.yaml]
       github:
         # The GitHub organization to scan.
         organization: DavidSourcedTestOrg

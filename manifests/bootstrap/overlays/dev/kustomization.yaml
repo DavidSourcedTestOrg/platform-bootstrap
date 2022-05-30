@@ -4,6 +4,25 @@ kind: Kustomization
 resources:
 - ../prod
 
+patches:
+- patch: |
+    - op: replace
+      value: manifests/overlays/dev/kustomization.yaml
+      path: /spec/generators/0/scmProvider/filters/0/pathsExist/0
+    - op: replace
+      value: manifests/overlays/dev
+      path: /spec/template/spec/source/path
+  target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: ApplicationSet
+    name: platform
+
+# patchesJson6902:
+#   - op: replace
+#     from: spec.generators[0].scmProvider.filters[0].pathExists[0]
+#     value: manifests/overlays/dev/kustomization.yaml
+
 # patchesStrategicMerge:
 #   - |
 #     apiVersion: argoproj.io/v1alpha1
@@ -12,16 +31,20 @@ resources:
 #       name: platform
 #       # You'll usually want to add your resources to the argocd namespace.
 #       namespace: argocd
-#     spec:
-#       source:
-#         path: manifests/overlays/dev
-#   - |
-#     apiVersion: argoproj.io/v1alpha1
-#     kind: Applicationset
-#     metadata:
-#       name: platform
-#       # You'll usually want to add your resources to the argocd namespace.
-#       namespace: argocd
-#     spec:
-#       source:
-#         path: manifests/overlays/dev
+#   spec:
+#     generators:
+#     - scmProvider:
+#         filters:
+#         # Include any repository starting with "myapp" AND including a Kustomize config AND labeled with "deploy-ok" ...
+#         - repositoryMatch: ^platform-
+#           pathsExist: [manifests/overlays/env_replacement_pending/kustomization.yaml]
+# #   - |
+# #     apiVersion: argoproj.io/v1alpha1
+# #     kind: Applicationset
+# #     metadata:
+# #       name: platform
+# #       # You'll usually want to add your resources to the argocd namespace.
+# #       namespace: argocd
+# #     spec:
+# #       source:
+# #         path: manifests/overlays/dev

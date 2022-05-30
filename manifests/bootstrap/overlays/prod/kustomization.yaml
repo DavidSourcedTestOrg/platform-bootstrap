@@ -4,20 +4,17 @@ kind: Kustomization
 resources:
 - ../../base
 
-
-# replacements:
-# - source:
-#     kind: ConfigMap
-#     name: platform-cm
-#     fieldPath: data.env
-#   targets:
-#   - select:
-#       group: argoproj.io
-#       kind: Application
-#       name: platform
-#     fieldPaths:
-#     - spec.source.path
-#     options:
-#      delimiter: /
-#      index: 2
-#      create: false
+patches:
+- patch: |
+    - op: replace
+      value: manifests/overlays/prod/kustomization.yaml
+      path: /spec/generators/0/scmProvider/filters/0/pathsExist/0
+      # path: /spec/template/metadata/name
+    - op: replace
+      value: manifests/overlays/prod
+      path: /spec/template/spec/source/path
+  target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: ApplicationSet
+    name: platform
