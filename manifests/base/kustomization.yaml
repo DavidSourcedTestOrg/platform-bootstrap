@@ -11,5 +11,7 @@ patchesStrategicMerge:
   - |
     apiVersion: v1
     kind: Service
+    metadata:
+      name: argocd-server
     spec:
       type: LoadBalancer
