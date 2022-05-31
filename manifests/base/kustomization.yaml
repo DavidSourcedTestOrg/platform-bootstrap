@@ -4,6 +4,9 @@ kind: Kustomization
 resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.4/manifests/install.yaml
 - platform-appset.yaml
+- customer-appset.yaml
+- customers/customer-a.yaml
+- customers/customer-b.yaml
 # - platform-apps-appset.yaml
 
 configMapGenerator:
