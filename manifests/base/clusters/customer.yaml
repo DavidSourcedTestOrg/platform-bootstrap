@@ -2,6 +2,8 @@
   kind: ContainerCluster
   metadata:
     name: customer
+    annotations:
+      cnrm.cloud.google.com/project-id: david-brownbag
   spec:
     description: customer cluster
     location: australia-southeast1-a
