@@ -12,7 +12,7 @@
       configConnectorConfig:
         enabled: true
       httpLoadBalancing:
-        enabled: true
+        disabled: false
     releaseChannel:
       channel: REGULAR
 
