@@ -2,17 +2,16 @@
   kind: ContainerCluster
   metadata:
     name: customer
-    annotations:
-      cnrm.cloud.google.com/project-id: david-brownbag
   spec:
-    description: An autopilot cluster.
-    enableAutopilot: true
-    location: australia-southeast1
+    description: customer cluster
+    location: australia-southeast1-a
+    initialNodeCount: 1
+    networkingMode: ROUTES
     addonsConfig:
       configConnectorConfig:
         enabled: true
       httpLoadBalancing:
         disabled: false
-    releaseChannel:
-      channel: REGULAR
-
+    workloadIdentityConfig:
+      # Replace david-brownbag with your project ID.
+      workloadPool: "david-brownbag.svc.id.goog"
