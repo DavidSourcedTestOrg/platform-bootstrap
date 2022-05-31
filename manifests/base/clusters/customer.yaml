@@ -8,5 +8,11 @@
     description: An autopilot cluster.
     enableAutopilot: true
     location: australia-southeast1
+    addonsConfig:
+      configConnectorConfig:
+        enabled: true
+      httpLoadBalancing:
+        enabled: true
     releaseChannel:
       channel: REGULAR
+
