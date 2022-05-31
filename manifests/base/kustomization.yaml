@@ -8,6 +8,7 @@ resources:
 
 configMapGenerator:
   - name: argocd-cm
+    behavior: merge
     literals:
       - kustomize.buildOptions=--enable-helm
 patchesStrategicMerge:
