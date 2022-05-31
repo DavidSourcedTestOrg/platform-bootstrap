@@ -16,7 +16,7 @@ patches:
     group: argoproj.io
     version: v1alpha1
     kind: ApplicationSet
-    name: platform
+    name: platform|customers
 
 # patchesJson6902:
 #   - op: replace
