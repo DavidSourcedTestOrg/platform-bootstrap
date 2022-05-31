@@ -41,7 +41,7 @@ spec:
 
       # Destination cluster and namespace to deploy the application
       destination:
-        server: 'https://35.244.105.71'
+        server: https://kubernetes.default.svc
         # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
         namespace: argocd
 
