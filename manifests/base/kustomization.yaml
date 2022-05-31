@@ -6,7 +6,10 @@ resources:
 - platform-appset.yaml
 # - platform-apps-appset.yaml
 
-
+configMapGenerator:
+  - name: argocd-cm
+    literals:
+      - kustomize.buildOptions=--enable-helm
 patchesStrategicMerge:
   - |
     apiVersion: v1
