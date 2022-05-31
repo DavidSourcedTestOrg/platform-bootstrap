@@ -1,0 +1,10 @@
+  apiVersion: container.cnrm.cloud.google.com/v1beta1
+  kind: ContainerCluster
+  metadata:
+    name: customer
+  spec:
+    description: An autopilot cluster.
+    enableAutopilot: true
+    location: australia-southeast1
+    releaseChannel:
+      channel: REGULAR
