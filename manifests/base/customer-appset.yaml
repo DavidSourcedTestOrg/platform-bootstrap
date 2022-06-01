@@ -41,7 +41,7 @@ spec:
 
       # Destination cluster and namespace to deploy the application
       destination:
-        server: https://kubernetes.default.svc
+        name: gke_david-brownbag_australia-southeast1-a_customer
         # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
         namespace: argocd
 
